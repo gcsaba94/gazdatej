@@ -3,7 +3,9 @@
 <title>Gazdatej</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="assets/scripts/jquery.min.js"></script>
+<script src="assets/scripts/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="./assets/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="./assets/css/w3.css">
 <link rel="stylesheet" href="./assets/css/style.css">
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
@@ -18,6 +20,7 @@
             <!-- Right-sided navbar links. Hide them on small screens -->
             <div class="w3-right">
                 <a href="#about" class="w3-bar-item w3-button">Rólunk</a>
+                <a href="#school" class="w3-bar-item w3-button">Iskolatej</a>
                 <a href="#contacts" class="w3-bar-item w3-button">Elérhetőségek</a>
             </div>
         </div>
@@ -52,6 +55,39 @@
                 </p>
                 <p class="w3-large">Az iskolatej-programban szinte a kezdetek óta részt veszünk, a gyerekek részére egészséges, tejből készített tejtermékeket biztosítunk. Eltökélt szándékunk megismertetni a gyerekekkel a hagyományos ízeket, megmutatni, hogy tartósítószerek
                     nélkül is lehet nemcsak egészséges, de finom élelmiszert gyártani. A program keretében tejet, kakaós tejet, karamellás tejet, ivójoghurtot illetve gyümölcsdarabos joghurtot gyártunk.</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- School Milk Section -->
+        <div class="w3-row w3-padding-64" id="school">
+            <div class="w3-padding-large">
+                <h1 class="w3-center">ÓVODA- ÉS ISKOLATEJ PROGRAM</h1>
+                <h5 class="w3-center">2020/2021.</h5>
+            </div>
+
+            <div class="w3-padding-large">
+                <table id="dataTable" class="w3-table-all">
+                    <thead>
+                        <tr>
+                            <th>Telephely neve</th>
+                            <th>Tagintézmény Telephely<br>neve</th>
+                            <th>Intézmény Tagintézmény<br>Telephely címe</th>
+                            <th class="sum">Tanulói létszám<br>1-8. oszt.<br>2020/2021. évi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
 
@@ -119,6 +155,57 @@
             }
             if (index == wd) {
                 $(this).addClass("today");
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        $('#dataTable').DataTable({
+            "language": {
+                "emptyTable": "Nincs rendelkezésre álló adat",
+                "info": "Találatok: _START_ - _END_ Összesen: _TOTAL_",
+                "infoEmpty": "Nulla találat",
+                "infoFiltered": "(_MAX_ összes rekord közül szűrve)",
+                "infoThousands": " ",
+                "lengthMenu": "_MENU_ találat oldalanként",
+                "loadingRecords": "Betöltés...",
+                "processing": "Feldolgozás...",
+                "search": "Keresés:",
+                "zeroRecords": "Nincs a keresésnek megfelelő találat",
+                "paginate": {
+                    "first": "Első",
+                    "previous": "Előző",
+                    "next": "Következő",
+                    "last": "Utolsó"
+                },
+                "searchPlaceholder": "keresés",
+            },
+            "ajax": {
+                "url": "http://localhost:8000/assets/data/school-milk.json",
+                "type": "GET"
+            },
+            "initComplete": function(settings, json) {
+                this.api().columns('.sum').every(function() {
+                    var column = this;
+
+                    var sum = column
+                        .data()
+                        .reduce(function(a, b) {
+                            a = parseInt(a, 10);
+                            if (isNaN(a)) {
+                                a = 0;
+                            }
+
+                            b = parseInt(b, 10);
+                            if (isNaN(b)) {
+                                b = 0;
+                            }
+
+                            return a + b;
+                        });
+
+                    $(column.footer()).html('Összesen: ' + sum);
+                });
             }
         });
     });
