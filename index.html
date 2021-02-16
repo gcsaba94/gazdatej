@@ -14,12 +14,16 @@
     <!-- Navbar (sit on top) -->
     <div class="w3-top">
         <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
-            <a href="#home" class="w3-bar-item w3-button">Gazdatej</a>
+            <h3 class="w3-badge">Gazdatej</h3>
             <div id="myTopnav" class="w3-right topnav">
-                <a href="#about" class="w3-bar-item w3-button">Rólunk</a>
-                <a href="#contacts" class="w3-bar-item w3-button">Elérhetőségek</a>
+                <a href="#about" class="w3-bar-item w3-button">
+                    <i class="fa fa-home"></i> Rólunk
+                </a>
+                <a href="#contacts" class="w3-bar-item w3-button">
+                    <i class="fa fa-envelope"></i> Elérhetőségek
+                </a>
                 <a href="javascript:void(0);" class="icon" onclick="openMenu()">
-                    <i class="fa fa-bars"></i>
+                    <i class="fa fa-chevron-down"></i>
                 </a>
             </div>
         </div>
@@ -126,11 +130,14 @@
     });
 
     function openMenu() {
-        var x = document.getElementById("myTopnav");
-        if (x.className.includes('responsive')) {
-            x.className = x.className.replace(" responsive", "");
+        var myTopnav = document.getElementById("myTopnav");
+        var icon = myTopnav.lastElementChild.firstElementChild;
+        if (myTopnav.className.includes('responsive')) {
+            myTopnav.className = myTopnav.className.replace(" responsive", "");
+            icon.className = icon.className.replace("up", "down");
         } else {
-            x.className += " responsive";
+            myTopnav.className += " responsive";
+            icon.className = icon.className.replace("down", "up");
         }
     }
 </script>

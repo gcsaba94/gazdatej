@@ -451,7 +451,7 @@ a {
 
 .w3-badge,
 .w3-tag {
-    background-color: #000;
+    background-color: #607d8b;
     color: #fff;
     display: inline-block;
     padding-left: 8px;
@@ -629,6 +629,7 @@ a {
     display: block;
     outline: 0;
     font-size: 17px;
+    font-variant: small-caps;
 }
 
 .w3-bar .w3-dropdown-hover,
