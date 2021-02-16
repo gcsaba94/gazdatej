@@ -14,11 +14,17 @@
     <!-- Navbar (sit on top) -->
     <div class="w3-top">
         <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
-            <a href="#home" class="w3-bar-item w3-button">Gazdatej</a>
-            <!-- Right-sided navbar links. Hide them on small screens -->
-            <div class="w3-right">
-                <a href="#about" class="w3-bar-item w3-button">Rólunk</a>
-                <a href="#contacts" class="w3-bar-item w3-button">Elérhetőségek</a>
+            <h3 class="w3-badge">Gazdatej</h3>
+            <div id="myTopnav" class="w3-right topnav">
+                <a href="#about" class="w3-bar-item w3-button">
+                    <i class="fa fa-home"></i> Rólunk
+                </a>
+                <a href="#contacts" class="w3-bar-item w3-button">
+                    <i class="fa fa-envelope"></i> Elérhetőségek
+                </a>
+                <a href="javascript:void(0);" class="icon" onclick="openMenu()">
+                    <i class="fa fa-chevron-down"></i>
+                </a>
             </div>
         </div>
     </div>
@@ -35,11 +41,11 @@
 
         <!-- About Section -->
         <div class="w3-row w3-padding-64" id="about">
-            <div class="w3-col m6 w3-padding-large w3-hide-small">
+            <div class="w3-col m6 w3-padding-large w3-hide-small w3-hide-medium">
                 <img src="./assets/img/iskolatej_europa.jpg" class="w3-round w3-image w3-opacity-min" alt="Table Setting">
             </div>
 
-            <div class="w3-col m6 w3-padding-large">
+            <div class="w3-col l6 w3-padding-large">
                 <h1 class="w3-center">Kedves Látogató!</h1>
                 <h5 class="w3-center">Először is szeretnék bemutatkozni!</h5>
                 <p class="w3-large">Születésem óta Tiszaroffon élek, 1994-től egyéni vállalkozó vagyok. Szüleim földműveléssel és állattenyésztéssel foglalkoztak, ezen belül szarvasmarha tenyésztéssel és tejtermeléssel. A 90-es évek közepén nagyon nehéz volt értékesíteni
@@ -122,6 +128,18 @@
             }
         });
     });
+
+    function openMenu() {
+        var myTopnav = document.getElementById("myTopnav");
+        var icon = myTopnav.lastElementChild.firstElementChild;
+        if (myTopnav.className.includes('responsive')) {
+            myTopnav.className = myTopnav.className.replace(" responsive", "");
+            icon.className = icon.className.replace("up", "down");
+        } else {
+            myTopnav.className += " responsive";
+            icon.className = icon.className.replace("down", "up");
+        }
+    }
 </script>
 
 </html>
